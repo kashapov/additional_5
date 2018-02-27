@@ -1,61 +1,55 @@
 module.exports = function check(str, bracketsConfig) {
   // config1 = [['(', ')']];
   // ((()))()', config1), true);
+  var tmp = [];
+  var bracketsOpen = [];
+  var bracketsClose = [];  
+  var check = 0;  
 
-  var tmp = {};
-  var brackets = [];
-
-  if (str.length % 2) {
-    return false;
-    //console.log('false 1');
+  for (var i=0; i<bracketsConfig.length; i++) {
+    bracketsOpen[i] = bracketsConfig[i][0];
+    bracketsClose[i] = bracketsConfig[i][1];
   }
   
-  for (var i = 0; i < bracketsConfig.length; i++) {
-    tmp[bracketsConfig[i][0]] = bracketsConfig[i][1];    
-  }
+ //console.log(bracketsOpen);
+ //console.log(bracketsClose);
 
-  //console.log(tmp);
+  for (var j=0; j<str.length; j++) {
+    for (var k=0; k<bracketsOpen.length; k++) {
+      if (str[j] == bracketsOpen[k]) {
 
-  str = str.split('');
+        //console.log(str[i]);
 
-  //console.log(str);
-  
-  for (var i = 0; i < str.length; i++) {
-    //console.log(str[i]);
-    if (tmp[str[i]]) {
-      brackets.push(str[i]);
-    } else {
-      brackets.pop();
+        tmp.push(k);
+
+        //console.log(tmp);
+
+        check++;
+      }
+
+      if (str[j] == bracketsClose[k]) {
+       //console.log(str[i]);
+        if (k == tmp.pop()) {
+          check--;
+        }
+        else {
+          return false;
+        }
+      }
     }
-
-    if (tmp[str[i]] == str[i]) {      
-      brackets.pop();
+   
+    if (check < 0) {
+      return false;
     }
   }
-
-  //console.log(brackets);
   
-  if (brackets.length >= 0)
-    return true;
-  else
-    return false;
-
-  /*str = str.split('');
-
-  for (var i = 0; i < str.length; i++) {
-    if ((str[i] == "(" && str[i+1] == ")") || (str[i] == "[" && str[i+1] == "]") || (str[i] == "{" && str[i+1] =="}") || (str[i] == "|" && str[i+1] =="|") || Number(str[i]) && str[i] == str[i+1]) {
-      str.splice(i,2)
-    }    
-  }
-
-  //console.log(str);
-
-  if (str.length == 0) { 
+  if (check == 0) {
     return true;
   }
   else {
     return false;
-  }*/
+  }
+
 
   
 }
