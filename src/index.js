@@ -28,14 +28,34 @@ module.exports = function check(str, bracketsConfig) {
       brackets.pop();
     }
 
-    if (tmp[str[i]] == str[i]) {
+    if (tmp[str[i]] == str[i]) {      
       brackets.pop();
     }
   }
+
+  //console.log(brackets);
   
   if (brackets.length >= 0)
     return true;
   else
     return false;
+
+  /*str = str.split('');
+
+  for (var i = 0; i < str.length; i++) {
+    if ((str[i] == "(" && str[i+1] == ")") || (str[i] == "[" && str[i+1] == "]") || (str[i] == "{" && str[i+1] =="}") || (str[i] == "|" && str[i+1] =="|") || Number(str[i]) && str[i] == str[i+1]) {
+      str.splice(i,2)
+    }    
+  }
+
+  //console.log(str);
+
+  if (str.length == 0) { 
+    return true;
+  }
+  else {
+    return false;
+  }*/
+
   
 }
