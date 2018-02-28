@@ -1,55 +1,36 @@
 module.exports = function check(str, bracketsConfig) {
-  // config1 = [['(', ')']];
-  // ((()))()', config1), true);
-  var tmp = [];
-  var bracketsOpen = [];
-  var bracketsClose = [];  
-  var check = 0;  
+  //var bracketsConfig = [['(', ')'], ['[', ']']];
+  //var str = '[]()';
 
-  for (var i=0; i<bracketsConfig.length; i++) {
-    bracketsOpen[i] = bracketsConfig[i][0];
-    bracketsClose[i] = bracketsConfig[i][1];
-  }
+  //var bracketsConfig = [['(', ')'], ['[', ']'], ['{', '}']];
+  //var str = '([{}])';
   
- //console.log(bracketsOpen);
- //console.log(bracketsClose);
+  var brackets = [];
+  
+  for (var i = 0; i < bracketsConfig.length; i++) {	
+    brackets.push(bracketsConfig[i][0] + bracketsConfig[i][1]);
+  };
 
-  for (var j=0; j<str.length; j++) {
-    for (var k=0; k<bracketsOpen.length; k++) {
-      if (str[j] == bracketsOpen[k]) {
-
-        //console.log(str[i]);
-
-        tmp.push(k);
-
-        //console.log(tmp);
-
-        check++;
-      }
-
-      if (str[j] == bracketsClose[k]) {
-       //console.log(str[i]);
-        if (k == tmp.pop()) {
-          check--;
-        }
-        else {
-          return false;
+  //console.log(brackets);
+  for (i = 0; i < brackets.length + 1; i++) {
+    for (var j = 0; j < brackets.length; j++) {
+      for (var k = 0; k < str.length; k++) {
+        if (str.indexOf(brackets[j]) != -1) {
+          var deletePosition = str.indexOf(brackets[j]);
+          str = str.substring(0, deletePosition) + str.substring(deletePosition + 2);
+          
+          k--;
         }
       }
     }
-   
-    if (check < 0) {
-      return false;
-    }
   }
-  
-  if (check == 0) {
+
+
+  if (str.length == 0) {
     return true;
   }
   else {
     return false;
   }
 
-
-  
 }
