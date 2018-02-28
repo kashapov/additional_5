@@ -9,9 +9,10 @@ module.exports = function check(str, bracketsConfig) {
   
   for (var i = 0; i < bracketsConfig.length; i++) {	
     brackets.push(bracketsConfig[i][0] + bracketsConfig[i][1]);
-  };
+  }
 
   //console.log(brackets);
+
   for (i = 0; i < brackets.length + 1; i++) {
     for (var j = 0; j < brackets.length; j++) {
       for (var k = 0; k < str.length; k++) {
@@ -25,6 +26,8 @@ module.exports = function check(str, bracketsConfig) {
     }
   }
 
+  
+  console.log(str);
 
   if (str.length == 0) {
     return true;
