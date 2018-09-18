@@ -1,33 +1,41 @@
 module.exports = function check(str, bracketsConfig) {
-  //var bracketsConfig = [['(', ')'], ['[', ']']];
-  //var str = '[]()';
+  //let str = '[]()';
+  //let bracketsConfig = [['(', ')'], ['[', ']']];
 
-  //var bracketsConfig = [['(', ')'], ['[', ']'], ['{', '}']];
-  //var str = '([{}])';
-  
-  var brackets = [];
-  
-  for (var i = 0; i < bracketsConfig.length; i++) {	
+  //let str = '([{}])';
+  //let bracketsConfig = [['(', ')'], ['[', ']'], ['{', '}']];
+
+  if (str.length % 2 === 1) {
+    return false;
+  }
+
+  let brackets = [];
+
+  for (let i = 0; i < bracketsConfig.length; i++) {
     brackets.push(bracketsConfig[i][0] + bracketsConfig[i][1]);
   }
 
   //console.log(brackets);
 
-  for (i = 0; i < brackets.length + 1; i++) {
-    for (var j = 0; j < brackets.length; j++) {
-      for (var k = 0; k < str.length; k++) {
+  for (let i = 0; i <= brackets.length; i++) {
+    if (!str) continue;
+
+    for (let j = 0; j <= brackets.length; j++) {
+      for (let k = 0; k <= str.length; k++) {
+        //console.log(str+'---'+brackets[j]);
         if (str.indexOf(brackets[j]) != -1) {
-          var deletePosition = str.indexOf(brackets[j]);
+          let deletePosition = str.indexOf(brackets[j]);
+          //console.log('del='+deletePosition);
           str = str.substring(0, deletePosition) + str.substring(deletePosition + 2);
-          
+
           k--;
         }
+
       }
     }
-  }
 
-  
-  console.log(str);
+  }
+  //console.log('-------------');
 
   if (str.length == 0) {
     return true;
